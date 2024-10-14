@@ -39,10 +39,10 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-900">
-      <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-md bg-opacity-40">
-        <h2 className="text-center text-2xl text-white mb-4">Welcome to AyuLekha</h2>
-        <p className="text-center text-white mb-6">Medical History Management Tool</p>
+    <div className="flex items-center justify-center h-screen bg-blue-100">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-center text-2xl text-blue-700 mb-4">Welcome to AyuLekha</h2>
+        <p className="text-center text-gray-600 mb-6">Medical History Management Tool</p>
 
         {errorMessage && (
           <p className="text-red-500 text-center mb-4">{errorMessage}</p>
@@ -50,7 +50,7 @@ function Login() {
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-white mb-2">Email/Phone Number</label>
+            <label className="block text-blue-700 mb-2">Email/Phone Number</label>
             <input
               type="text"
               placeholder="Enter your email or phone number"
@@ -62,7 +62,7 @@ function Login() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-white mb-2">Password</label>
+            <label className="block text-blue-700 mb-2">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
@@ -81,7 +81,7 @@ function Login() {
           </button>
         </form>
 
-        <div className="text-center mt-6 text-white">
+        <div className="text-center mt-6 text-blue-700">
           <p className="cursor-pointer" onClick={handleForgotPassword}>Forgot Password?</p>
           <p className="mt-2 flex justify-center items-center cursor-pointer">
             <FontAwesomeIcon icon={faFingerprint} className="mr-2" /> Biometric Login
