@@ -18,7 +18,7 @@ function Welcome() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100 pt-20">
+    <div className="flex flex-col items-center justify-center h-screen bg-blue-100 pt-20 px-4"> {/* Added px-4 for padding */}
       {/* Logo */}
       <img src={logo} alt="AyuLekha Logo" className="w-60 mb-5" />
 

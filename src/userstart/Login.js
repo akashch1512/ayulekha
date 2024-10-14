@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function Login() {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,15 +20,16 @@ function Login() {
         body: JSON.stringify({ emailOrPhone, password }),
       });
 
-      if (!response.ok) {
-        throw new Error(await response.text());
+      // Check the login credentials
+      if (emailOrPhone === 'admin_user' && password === 'user_password') {
+        navigate('/user_dashboard'); // Redirect to user dashboard using navigate
+      } else if (emailOrPhone === 'admin_doctor' && password === 'doctor_password') {
+        navigate('/doctor_dashboard'); // Redirect to doctor dashboard
+      } else if (emailOrPhone === 'universal_admin' && password === 'admin_password') {
+        navigate('/universal_dashboard'); // Redirect to universal dashboard
+      } else {
+        setErrorMessage('Invalid credentials. Please try again.'); // Handle invalid credentials
       }
-
-      const data = await response.json();
-      // Handle successful login (e.g., store user data, redirect)
-      console.log('Login successful:', data);
-      // Redirect to dashboard or appropriate page
-      window.location.href = '/dashboard';
     } catch (error) {
       console.error('Login error:', error.message);
       setErrorMessage(error.message);
@@ -34,12 +37,11 @@ function Login() {
   };
 
   const handleForgotPassword = () => {
-    // Implement logic to handle password reset (e.g., redirect)
     console.log('Redirecting to password reset page');
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-100 px-4"> {/* Added px-4 for padding */}
+    <div className="flex items-center justify-center h-screen bg-blue-100 px-4">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-center text-2xl text-blue-700 mb-4">Welcome to AyuLekha</h2>
         <p className="text-center text-gray-600 mb-6">Medical History Management Tool</p>
