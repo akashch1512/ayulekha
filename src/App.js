@@ -5,6 +5,9 @@ import Login from './userstart/Login'; // Importing the Login component
 import SignUp from './userstart/SignUp'; // Importing the SignUp component
 import ForgotPassword from './userstart/ForgotPassword'; // Importing the ForgotPassword component
 import UserDashboard from './dashboard/user_dashboard'; // Importing the UserDashboard component
+import DoctorDashboard from './dashboard/doctor_dashboard'; 
+import UniversalDashboard from './dashboard/universal_dashboard'; 
+
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/user_dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
+        <Route path="/doctor_dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
+        <Route path="/universal_dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
+
       </Routes>
     </Router>
   );
