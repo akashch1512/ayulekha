@@ -16,3 +16,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: auto; /* Allow scrolling */
+}
+
+.flex {
+  min-height: 100vh; /* Ensures the div takes full height */
+}
+
+/* In App.css or index.css */
+
+.flex {
+  padding-top: 100px; /* Adjust the value as needed */
+}

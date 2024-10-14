@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+/* index.css */
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: auto; /* Allow scrolling */
+}
+
+.flex {
+  min-height: 100vh; /* Ensures the div takes full height */
+}
