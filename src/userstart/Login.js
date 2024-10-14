@@ -39,7 +39,7 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-100">
+    <div className="flex items-center justify-center h-screen bg-blue-100 px-4"> {/* Added px-4 for padding */}
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-center text-2xl text-blue-700 mb-4">Welcome to AyuLekha</h2>
         <p className="text-center text-gray-600 mb-6">Medical History Management Tool</p>
