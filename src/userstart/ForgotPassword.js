@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function ForgotPassword() {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -14,15 +15,11 @@ function ForgotPassword() {
         body: JSON.stringify({ emailOrPhone }),
       });
 
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-
       const data = await response.json();
       setMessage(data.message || 'Password reset link sent!');
     } catch (error) {
       console.error('Error sending password reset link:', error.message);
-      setMessage(error.message);
+      setErrorMessage("Contact Us for Reset Link");
     }
   };
 

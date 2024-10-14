@@ -37,11 +37,26 @@ function Login() {
   };
 
   const handleForgotPassword = () => {
-    console.log('Redirecting to password reset page');
+    navigate('/forgotpassword'); 
+  };
+
+  const handlebiometriclogin = () => {
+    // Simulating fingerprint authentication
+    const enteredFingerprintId = prompt("Please scan your fingerprint or enter its ID:");
+
+    // Check if a fingerprint ID is entered
+    if (enteredFingerprintId) {
+      console.log('Fingerprint ID entered:', enteredFingerprintId);
+      // Redirect to the user dashboard
+      navigate('/user_dashboard');
+    } else {
+      setErrorMessage('No fingerprint ID entered. Please try again.');
+    }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-100 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-blue-100 px-4 pt-20">
+      {/* Added pt-20 for padding-top to avoid collision with the top */}
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-center text-2xl text-blue-700 mb-4">Welcome to AyuLekha</h2>
         <p className="text-center text-gray-600 mb-6">Medical History Management Tool</p>
@@ -85,7 +100,7 @@ function Login() {
 
         <div className="text-center mt-6 text-blue-700">
           <p className="cursor-pointer" onClick={handleForgotPassword}>Forgot Password?</p>
-          <p className="mt-2 flex justify-center items-center cursor-pointer">
+          <p className="mt-2 flex justify-center items-center cursor-pointer" onClick={handlebiometriclogin}>
             <FontAwesomeIcon icon={faFingerprint} className="mr-2" /> Biometric Login
           </p>
         </div>
