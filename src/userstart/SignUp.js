@@ -29,101 +29,49 @@ function SignUp() {
     }
   };
 
-  const styles = {
-    container: {
-      backgroundColor: '#e3f2fd',
-      height: '100vh',
-      padding: '20px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    box: {
-      backgroundColor: '#ffffff',
-      padding: '20px',
-      borderRadius: '10px',
-      boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-      width: '100%',
-      maxWidth: '400px',
-    },
-    heading: {
-      textAlign: 'center',
-      color: '#0277bd',
-      fontSize: '1.5rem',
-      marginBottom: '10px',
-    },
-    paragraph: {
-      textAlign: 'center',
-      color: '#555',
-      marginBottom: '20px',
-    },
-    inputGroup: {
-      marginBottom: '15px',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '8px',
-      color: '#0277bd',
-    },
-    input: {
-      width: '93%',
-      padding: '12px',
-      border: '1px solid #b0bec5',
-      borderRadius: '5px',
-      fontSize: '1rem',
-    },
-    signUpBtn: {
-      width: '100%',
-      padding: '12px',
-      backgroundColor: '#0277bd',
-      color: 'white',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '1rem',
-      marginTop: '10px',
-    },
-    errorMessage: {
-      color: 'red',
-      textAlign: 'center',
-      marginTop: '10px',
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.box}>
-        <h2 style={styles.heading}>Create an Account</h2>
-        <p style={styles.paragraph}>Join us and manage your medical history easily.</p>
+    <div className="flex items-center justify-center h-screen bg-blue-100">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-center text-2xl text-blue-700 mb-4">Create an Account</h2>
+        <p className="text-center text-gray-600 mb-6">
+          Join us and manage your medical history easily.
+        </p>
 
-        {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
+        {errorMessage && (
+          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+        )}
 
         <form onSubmit={handleSignUp}>
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Email/Phone Number</label>
+          <div className="mb-4">
+            <label className="block text-blue-700 mb-2">Email/Phone Number</label>
             <input
               type="text"
               placeholder="Enter your email or phone number"
               value={emailOrPhone}
               onChange={(e) => setEmailOrPhone(e.target.value)}
               required
-              style={styles.input}
+              className="w-full p-3 border border-gray-300 rounded-lg"
             />
           </div>
 
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Password</label>
+          <div className="mb-4">
+            <label className="block text-blue-700 mb-2">Password</label>
             <input
               type="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={styles.input}
+              className="w-full p-3 border border-gray-300 rounded-lg"
             />
           </div>
 
-          <button type="submit" style={styles.signUpBtn}>Sign Up</button>
+          <button
+            type="submit"
+            className="w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800 transition"
+          >
+            Sign Up
+          </button>
         </form>
       </div>
     </div>
