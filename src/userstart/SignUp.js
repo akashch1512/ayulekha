@@ -16,7 +16,7 @@ function SignUp() {
       });
 
       if (!response.ok) {
-        throw new Error(await response.text());
+        throw new Error("We Are Curruntly not accpting new users");
       }
 
       const data = await response.json();
