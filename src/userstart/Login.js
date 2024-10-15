@@ -21,11 +21,11 @@ function Login() {
       });
 
       // Check the login credentials
-      if (emailOrPhone === 'admin_user' && password === 'user_password') {
+      if (emailOrPhone === 'user' && password === 'password') {
         navigate('/user_dashboard'); // Redirect to user dashboard using navigate
-      } else if (emailOrPhone === 'admin_doctor' && password === 'doctor_password') {
+      } else if (emailOrPhone === 'doctor' && password === 'password') {
         navigate('/doctor_dashboard'); // Redirect to doctor dashboard
-      } else if (emailOrPhone === 'universal_admin' && password === 'admin_password') {
+      } else if (emailOrPhone === 'admin' && password === 'password') {
         navigate('/universal_dashboard'); // Redirect to universal dashboard
       } else {
         setErrorMessage('Invalid credentials. Please try again.'); // Handle invalid credentials
