@@ -2,11 +2,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/Ayulekha.gif'; // Replace with your logo path
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { app, auth } from '../firebaseConfig'; // Adjust the path if needed
 import '../index.css'; // Import custom styles
 
-const provider = new GoogleAuthProvider();
 
 function Welcome() {
   const navigate = useNavigate();
@@ -36,25 +33,7 @@ function Welcome() {
   }, [index, texts]); // Add texts to the dependency array
 
   // Handle Google login
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result.user); // Handle user info
-      navigate('/dashboard'); // Redirect after login
-    } catch (error) {
-      console.error('Login failed:', error.message);
-      // Handle specific error codes:
-      if (error.code === 'auth/popup-closed-by-user') {
-        alert('Popup closed before completing login.');
-      } else if (error.code === 'auth/cancelled-popup-request') {
-        alert('Login request was cancelled.');
-      } else {
-        // Handle other errors
-        alert('An error occurred. Please try again.');
-      }
-    }
-  };
-
+  
   // Navigation handlers
   const handleLogin = () => navigate('/login');
   const handleSignUp = () => navigate('/signup');
@@ -69,15 +48,6 @@ function Welcome() {
       <h2 className={`text-center text-xl text-blue-700 font-bold mb-5 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         {currentText}
       </h2>
-
-      {/* Google Login Button */}
-      <button
-        className="bg-red-500 text-white py-3 px-6 rounded-lg mb-0 shadow-lg hover:bg-red-600 transition font-bold"
-        onClick={handleGoogleLogin}
-        aria-label="Sign in with Google" // Accessibility improvement
-      >
-        Sign in with Google
-      </button>
 
       {/* Login and Signup Buttons */}
       <div className="flex space-x-4 -mt-14">

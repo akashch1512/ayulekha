@@ -20,7 +20,14 @@ function Login() {
         body: JSON.stringify({ emailOrPhone, password }),
       });
 
-      // Check the login credentials
+      // Check if the response was successful
+      if (!response.ok) {
+        const data = await response.json(); // Get error message from response if login fails
+        setErrorMessage(data.message || 'Invalid credentials. Please try again.'); // Handle invalid credentials
+        return; // Exit the function if login fails
+      }
+
+      // Here we assume the login is successful
       if (emailOrPhone === 'user' && password === 'password') {
         navigate('/user_dashboard'); // Redirect to user dashboard using navigate
       } else if (emailOrPhone === 'doctor' && password === 'password') {
@@ -32,7 +39,7 @@ function Login() {
       }
     } catch (error) {
       console.error('Login error:', error.message);
-      setErrorMessage(error.message);
+      setErrorMessage(error.message); // Set error message from catch block
     }
   };
 

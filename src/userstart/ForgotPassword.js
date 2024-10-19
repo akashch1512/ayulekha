@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function ForgotPassword() {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // Keep the error message state
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -16,10 +16,15 @@ function ForgotPassword() {
       });
 
       const data = await response.json();
-      setMessage(data.message || 'Password reset link sent!');
+      if (response.ok) {
+        setMessage(data.message || 'Password reset link sent!');
+        setErrorMessage(''); // Clear any previous error message
+      } else {
+        setErrorMessage(data.message || 'An error occurred. Please try again.'); // Set error message from response
+      }
     } catch (error) {
       console.error('Error sending password reset link:', error.message);
-      setErrorMessage("Contact Us for Reset Link");
+      setErrorMessage("Contact Us for Reset Link"); // Handle error
     }
   };
 
@@ -51,6 +56,10 @@ function ForgotPassword() {
 
         {message && (
           <p className="text-center text-gray-600 mt-4">{message}</p>
+        )}
+        
+        {errorMessage && ( // Display the error message if it exists
+          <p className="text-center text-red-600 mt-4">{errorMessage}</p>
         )}
       </div>
     </div>
