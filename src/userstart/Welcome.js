@@ -1,7 +1,7 @@
 // Welcome.js
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/Ayulekha.png'; // Replace with your logo path
+import logo from '../images/Ayulekha.gif'; // Replace with your logo path
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { app, auth, db, storage } from '../firebaseConfig'; // Adjust the path if needed
 import '../index.css'; // Import custom styles
