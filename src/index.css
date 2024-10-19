@@ -30,3 +30,36 @@ body {
 .flex {
   padding-top: 100px; /* Adjust the value as needed */
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+/* Add this to your index.css or a separate CSS file */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+h2 {
+  animation: fadeIn 0.5s ease-in-out; /* Adjust duration as needed */
+}
+/* Add this to your index.css or a separate CSS file */
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+h2 {
+  animation: fade 3s ease-in-out; /* Adjust duration as needed */
+}
