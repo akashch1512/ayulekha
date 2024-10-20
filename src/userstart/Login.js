@@ -84,9 +84,10 @@ function Login() {
       const storedCredentialId = localStorage.getItem('credentialId');
   
       if (!storedCredentialId) {
-        setErrorMessage('No registered passkey found. Please register first.');
-        return;
+        handleRegisterPasskey(); // Call the function if storedCredentialId is falsy
+        return; // Exit the current function after calling handleRegisterPasskey
       }
+      
   
       // Convert the stored base64 credential back to a Uint8Array
       const credentialIdUint8Array = new Uint8Array(
