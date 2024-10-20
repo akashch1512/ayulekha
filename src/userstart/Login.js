@@ -12,17 +12,17 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ emailOrPhone, password }),
-      });
+      // const response = await fetch('/api/login', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ emailOrPhone, password }),
+      // });
 
-      if (!response.ok) {
-        const data = await response.json();
-        setErrorMessage(data.message || 'Invalid credentials. Please try again.');
-        return;
-      }
+      // if (!response.ok) {
+      //   const data = await response.json();
+      //   setErrorMessage(data.message || 'Invalid credentials. Please try again.');
+      //   return;
+      // }
 
       if (emailOrPhone === 'user' && password === 'password') {
         navigate('/user_dashboard');
