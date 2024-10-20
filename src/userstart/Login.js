@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Implement logic to handle login with API call or authentication
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -20,58 +18,101 @@ function Login() {
         body: JSON.stringify({ emailOrPhone, password }),
       });
 
-      // Check if the response was successful
       if (!response.ok) {
-        const data = await response.json(); // Get error message from response if login fails
-        setErrorMessage(data.message || 'Invalid credentials. Please try again.'); // Handle invalid credentials
-        return; // Exit the function if login fails
+        const data = await response.json();
+        setErrorMessage(data.message || 'Invalid credentials. Please try again.');
+        return;
       }
 
-      // Here we assume the login is successful
       if (emailOrPhone === 'user' && password === 'password') {
-        navigate('/user_dashboard'); // Redirect to user dashboard using navigate
+        navigate('/user_dashboard');
       } else if (emailOrPhone === 'doctor' && password === 'password') {
-        navigate('/doctor_dashboard'); // Redirect to doctor dashboard
+        navigate('/doctor_dashboard');
       } else if (emailOrPhone === 'admin' && password === 'password') {
-        navigate('/universal_dashboard'); // Redirect to universal dashboard
+        navigate('/universal_dashboard');
       } else {
-        setErrorMessage('Invalid credentials. Please try again.'); // Handle invalid credentials
+        setErrorMessage('Invalid credentials. Please try again.');
       }
     } catch (error) {
-      console.error('Login error:', error.message);
-      setErrorMessage(error.message); // Set error message from catch block
+      console.error('Login error:', error);
+      setErrorMessage('An error occurred. Please try again.');
     }
   };
 
   const handleForgotPassword = () => {
-    navigate('/forgotpassword'); 
+    navigate('/forgotpassword');
   };
 
-  const handlebiometriclogin = async () => {
+  const handleRegisterPasskey = async () => {
     try {
-      // Check if the browser supports WebAuthn API
-      if (!('credentials' in navigator) || !window.PublicKeyCredential) {
+      const publicKey = {
+        challenge: new Uint8Array(32).fill(0), // Static challenge for testing
+        rp: { name: 'AyuLekha', id: window.location.hostname },
+        user: {
+          id: new Uint8Array(16), // Random unique ID (can be from backend)
+          name: 'user@example.com',
+          displayName: 'User',
+        },
+        pubKeyCredParams: [{ type: 'public-key', alg: -7 }], // ECDSA with SHA-256
+        authenticatorSelection: { userVerification: 'preferred' }, // Prefer biometric
+        timeout: 60000,
+      };
+  
+      // Trigger passkey registration
+      const credential = await navigator.credentials.create({ publicKey });
+  
+      // Store the rawId as a base64-encoded string
+      const rawId = btoa(String.fromCharCode(...new Uint8Array(credential.rawId)));
+      localStorage.setItem('credentialId', rawId);
+  
+      console.log('Passkey registration successful:', credential);
+      alert('Passkey registered successfully!');
+    } catch (error) {
+      console.error('Passkey registration failed:', error);
+      alert('Failed to register passkey. Please try again.');
+    }
+  };
+  
+  const handleBiometricLogin = async () => {
+    try {
+      // Check if biometric authentication is supported
+      if (!navigator.credentials || !window.PublicKeyCredential) {
         setErrorMessage('Biometric authentication is not supported on this device.');
         return;
       }
   
-      // PublicKeyCredentialRequestOptions to trigger fingerprint authentication
+      const storedCredentialId = localStorage.getItem('credentialId');
+  
+      if (!storedCredentialId) {
+        setErrorMessage('No registered passkey found. Please register first.');
+        return;
+      }
+  
+      // Convert the stored base64 credential back to a Uint8Array
+      const credentialIdUint8Array = new Uint8Array(
+        atob(storedCredentialId).split('').map((char) => char.charCodeAt(0))
+      );
+  
       const publicKey = {
-        challenge: new Uint8Array(32), // This should ideally come from the server
-        allowCredentials: [], // No need for specific credentials for fingerprint-only auth
-        timeout: 60000, // Timeout for user input
-        userVerification: 'required', // Force biometric verification (like fingerprint)
+        challenge: new Uint8Array(32).fill(0), // Static challenge for testing
+        allowCredentials: [
+          {
+            id: credentialIdUint8Array,
+            type: 'public-key',
+          },
+        ],
+        timeout: 60000,
+        userVerification: 'required',
       };
   
-      // Trigger fingerprint or other biometric prompt
-      const credential = await navigator.credentials.get({ publicKey });
+      // Trigger biometric authentication
+      const assertion = await navigator.credentials.get({ publicKey });
   
-      console.log('Biometric authentication successful:', credential);
-  
-      // On successful authentication, redirect the user
-      navigate('/user_dashboard');
+      console.log('Login successful:', assertion);
+      // alert('Biometric login successful!');
+      navigate('/emergency'); // Redirect to dashboard
     } catch (error) {
-      console.error('Biometric authentication failed:', error);
+      console.error('Biometric login failed:', error);
       setErrorMessage('Authentication failed. Please try again.');
     }
   };
@@ -79,14 +120,11 @@ function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-100 px-4 pt-20">
-      {/* Added pt-20 for padding-top to avoid collision with the top */}
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-center text-2xl text-blue-700 mb-4">Welcome to AyuLekha</h2>
         <p className="text-center text-gray-600 mb-6">Medical History Management Tool</p>
 
-        {errorMessage && (
-          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-        )}
+        {errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
@@ -122,9 +160,20 @@ function Login() {
         </form>
 
         <div className="text-center mt-6 text-blue-700">
-          <p className="cursor-pointer" onClick={handleForgotPassword}>Forgot Password?</p>
-          <p className="mt-2 flex justify-center items-center cursor-pointer" onClick={handlebiometriclogin}>
-            <FontAwesomeIcon icon={faFingerprint} className="mr-2" /> Biometric Login
+          <p className="cursor-pointer" onClick={handleForgotPassword}>
+            Forgot Password?
+          </p>
+          {/* <p
+            className="mt-2 flex justify-center items-center cursor-pointer"
+            onClick={handleRegisterPasskey}
+          >
+            <FontAwesomeIcon icon={faFingerprint} className="mr-2" /> Register Passkey
+          </p> */}
+          <p
+            className="text-red-700 mt-2 flex justify-center items-center cursor-pointer"
+            onClick={handleBiometricLogin}
+          >
+            <FontAwesomeIcon icon={faFingerprint} className="mr-2" /> Emergency Biometric Login
           </p>
         </div>
       </div>

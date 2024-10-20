@@ -8,6 +8,7 @@ import UserDashboard from './dashboard/user_dashboard'; // Importing the UserDas
 import DoctorDashboard from './dashboard/doctor_dashboard'; 
 import UniversalDashboard from './dashboard/universal_dashboard'; 
 import ForgotPassword from './userstart/ForgotPassword';
+import EmergencyDetails from './urgent/emergency';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/doctor_dashboard" element={<DoctorDashboard />} /> {/* User Dashboard Route */}
         <Route path="/universal_dashboard" element={<UniversalDashboard />} /> {/* User Dashboard Route */}
         <Route path="/forgotpassword" element={<ForgotPassword />} /> {/* User Dashboard Route */}
+        <Route path="/emergency" element={<EmergencyDetails />} /> {/* User Dashboard Route */}
       </Routes>
     </Router>
   );
