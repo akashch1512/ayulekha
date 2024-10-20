@@ -13,7 +13,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New'    ,
     monospace;
 }
 
@@ -23,18 +23,31 @@ body {
   overflow: auto; /* Allow scrolling */
 }
 
-
-
-/* In App.css or index.css */
-
+/* Align button to right and ensure spacing */
 .flex {
-  padding-top: 100px; /* Adjust the value as needed */
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 100px; /* Adjust as needed */
 }
 
+/* Styling for body and overflow handling */
 body {
+  margin: 0;
+  height: 100vh;
+  overflow: auto; /* Allow scrolling on smaller screens */
   font-family: 'Roboto', sans-serif;
 }
-/* Add this to your index.css or a separate CSS file */
+
+/* Button animations for hover effects */
+button {
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Fade-in animation for text */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -45,9 +58,10 @@ body {
 }
 
 h2 {
-  animation: fadeIn 0.5s ease-in-out; /* Adjust duration as needed */
+  animation: fadeIn 0.5s ease-in-out;
 }
-/* Add this to your index.css or a separate CSS file */
+
+/* Additional fade effect for transitions */
 @keyframes fade {
   0% {
     opacity: 0;
@@ -61,5 +75,25 @@ h2 {
 }
 
 h2 {
-  animation: fade 3s ease-in-out; /* Adjust duration as needed */
+  animation: fade 3s ease-in-out;
+}
+/* Ensure the button stays at the top-right */
+.fixed {
+  position: fixed;
+  z-index: 10; /* Ensures the button stays above other content */
+}
+
+/* Optional: Hover scaling effect */
+button:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+/* Ensure the body can scroll without hiding content */
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: auto;
+  font-family: 'Roboto', sans-serif;
 }

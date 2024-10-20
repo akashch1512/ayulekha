@@ -41,7 +41,17 @@ function Welcome() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-blue-100 pt-20 px-4 -mt-16">
-      {/* Logo */}
+      <div className="w-full flex justify-end fixed -top-20 right-4">
+  <button
+    className="bg-green-700 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-800 transition duration-300 ease-in-out font-bold"
+    onClick={handleLogin}
+  >
+    For Doctors ➡
+  </button>
+</div>
+
+
+
       <img src={logo} alt="AyuLekha Logo" className="w-80 mb-5" />
 
       {/* Animated Heading */}
