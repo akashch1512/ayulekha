@@ -55,7 +55,7 @@ function Welcome() {
       <img src={logo} alt="AyuLekha Logo" className="w-80 mb-5" />
 
       {/* Animated Heading */}
-      <h2 className={`text-center text-xl text-blue-700 font-bold mb-5 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <h2 className={`text-center text-2xl text-blue-700 font-bold mb-5 transition-opacity duration-500 mt-10 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         {currentText}
       </h2>
 
