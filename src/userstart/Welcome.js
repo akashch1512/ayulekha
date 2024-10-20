@@ -60,7 +60,7 @@ function Welcome() {
       </h2>
 
       {/* Login and Signup Buttons */}
-      <div className="flex space-x-4 -mt-14">
+      <div className="flex space-x-4 ">
         <button
           className="bg-blue-700 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-800 transition font-bold"
           onClick={handleLogin}
